@@ -47,7 +47,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--bg);
+  background: #00c2e8;
   color: var(--ink);
   font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
@@ -57,16 +57,26 @@ main {
   grid-template-columns: 1fr;
   gap: 28px;
   align-items: center;
-  max-width: 980px;
+  max-width: 1700px;
   margin: 0 auto;
   padding: 24px 20px 40px;
 }
 
 @media (min-width: 800px) {
   main {
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     padding-top: 48px;
   }
+}
+
+.logo {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1;
+  object-fit: contain;
+  margin: 0 auto;
+  border-radius: 16px;
 }
 
 h1 {
@@ -176,8 +186,8 @@ button {
   padding: 14px 22px;
   font: inherit;
   font-weight: 800;
-  color: var(--accent-ink);
-  background: var(--accent);
+  color: #14232e;
+  background: #00c2e8;
   border: 0;
   border-radius: 12px;
   cursor: pointer;
