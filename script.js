@@ -26,8 +26,7 @@
     items = textarea.value
       .split('\n')
       .map(function (line) { return line.trim(); })
-      .filter(Boolean)
-      .slice(0, 40);
+      .filter(Boolean);
 
     spinButton.disabled = spinning || items.length < 2;
     hintEl.textContent = items.length < 2
@@ -68,17 +67,27 @@
     var innerLimit = Math.max(hubEdge, fontSize * 1.2 / slice);
     var maxWidth = textStart - innerLimit;
 
+    // With many options the slices get too thin for outlines or text
+    var rimArc = radius * slice;                 // slice width at the rim, in px
+    var lineW = rimArc > 14 ? 2 : (rimArc > 7 ? 1 : 0);
+    var showText = maxWidth > fontSize * 3 && rimArc > 8;
+    var overlap = lineW ? 0 : 0.003;             // hide hairline gaps between slices
+
     for (var i = 0; i < count; i++) {
       var start = angle + i * slice;
 
       ctx.beginPath();
       ctx.moveTo(center, center);
-      ctx.arc(center, center, radius, start, start + slice);
+      ctx.arc(center, center, radius, start, start + slice + overlap);
       ctx.closePath();
       ctx.fillStyle = COLORS[i % COLORS.length];
       ctx.fill();
-      ctx.lineWidth = 2;
-      ctx.stroke();
+      if (lineW) {
+        ctx.lineWidth = lineW;
+        ctx.stroke();
+      }
+
+      if (!showText) continue;
 
       ctx.save();
       ctx.translate(center, center);
